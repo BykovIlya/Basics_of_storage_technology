@@ -1,25 +1,32 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
-
-Vue.use(Router)
+import Directors from './components/Directors'
+import Boxoffice from "./components/Boxoffice";
+import Studios from "./components/Studios";
+import Movies from "./components/Movies"
+Vue.use(Router);
 
 export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home
+      name: 'Boxoffice',
+      component: Boxoffice
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: function () { 
-        return import(/* webpackChunkName: "about" */ './views/About.vue')
-      }
-    }
+      path: '/directors',
+      name: 'Directors',
+      component: Directors
+    },
+    {
+      path: '/movies',
+      name: 'Movies',
+      component: Movies
+    },
+    {
+      path: '/studios',
+      name: 'Studios',
+      component: Studios
+    },
   ]
 })
