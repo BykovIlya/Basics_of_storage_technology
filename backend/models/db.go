@@ -1,6 +1,7 @@
 package models
 
 import (
+	"../utils"
 	"database/sql"
 	"fmt"
 	_ "github.com/lib/pq"
