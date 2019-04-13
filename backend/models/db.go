@@ -1,7 +1,7 @@
 package models
 
 import (
-	"../utils"
+	"Basics_of_storage_technology/backend/utils"
 	"database/sql"
 	"fmt"
 	_ "github.com/lib/pq"
@@ -43,7 +43,7 @@ func Migrate(db *sql.DB) {
     );
 	CREATE TABLE IF NOT EXISTS boxoffice(
         id BIGSERIAL PRIMARY KEY NOT NULL,
-		movie_id INTEGER,
+		movie VARCHAR(255) NOT NULL,
 		domestic_sales INTEGER,
 		international_sales INTEGER
     );
