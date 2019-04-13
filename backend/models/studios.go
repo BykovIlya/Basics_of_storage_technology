@@ -8,7 +8,7 @@ import (
 type Studio struct {
 	Id        int64  `json:"id"`
 	Name      string `json:"name"`
-	Year      string `json:"year"`
+	Year      int64  `json:"year"`
 	All_films int64  `json:"all_films"`
 }
 

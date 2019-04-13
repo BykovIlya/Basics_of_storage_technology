@@ -55,36 +55,70 @@ const messages = {
 
             movies: {
                 title: "Фильмы",
-                add: "Добавить директора",
+                add: "Добавить фильм",
                 table: {
-                    name: "Название",
+                    title: "Название",
                     director: "Директор",
                     year: "Год",
                     length: "Длительность",
                     studio: "Студия",
                     actions: "Действия"
+                },
+                modal: {
+                    title: "Название: ",
+                    director: "Директор: ",
+                    year: "Год: ",
+                    length: "Длительность: ",
+                    studio: "Студия: ",
+                    placeholder: {
+                        title: "введите название фильма",
+                        director: "введите ФИО директора ",
+                        year: "введите год выпуска ",
+                        length: "введите длительность в мин. ",
+                        studio: "введите название студии",
+                    }
                 }
             },
 
             studios: {
                 title: "Студии",
-                add: "Добавить директора",
+                add: "Добавить студию",
                 table: {
                     name: "Название",
                     year: "Год основания",
                     all_films: "Общее количество фильмов",
                     actions: "Действия"
+                },
+                modal: {
+                    name: "Название:",
+                    year: "Год основания:",
+                    all_films: "Общее количество фильмов:",
+                    placeholder: {
+                        name: "введи название студии",
+                        year: "введи год основания",
+                        all_films: "введи общее количество фильмов",
+                    }
                 }
             },
 
             boxoffice: {
                 title: "Касса",
-                add: "Добавить директора",
+                add: "Добавить инфо о сборах",
                 table: {
                     movie: "Фильм",
                     domestic_sales: "Внутренние сборы",
                     international_sales: "Международные сборы",
                     actions: "Действия"
+                },
+                modal: {
+                    movie: "Фильм: ",
+                    domestic_sales: "Внутренние сборы:",
+                    international_sales: "Международные сборы:",
+                    placeholder: {
+                        movie: "введите название фильма",
+                        domestic_sales: "введите внутренние сборы",
+                        international_sales: "введите международные сборы",
+                    },
                 }
             }
 

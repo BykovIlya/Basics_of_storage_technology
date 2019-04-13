@@ -8,7 +8,7 @@ import (
 type Movie struct {
 	Id       int64  `json:"id"`
 	Title    string `json:"title"`
-	Director string `json:"movie"`
+	Director string `json:"director"`
 	Year     int64  `json:"year"`
 	Length   int64  `json:"length"`
 	Studio   string `json:"studio"`

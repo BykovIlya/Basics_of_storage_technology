@@ -14,14 +14,14 @@ type Boxoffice struct {
 
 func CreateBoxoffice(w Boxoffice) int64 {
 	var uid int64
-	err := DB.QueryRow("INSERT INTO boxoffices(movie,domestic_sales,international_sales) VALUES($1,$2,$3) returning id",
+	err := DB.QueryRow("INSERT INTO boxoffice(movie,domestic_sales,international_sales) VALUES($1,$2,$3) returning id",
 		w.Movie, w.Domestic_sales, w.International_sales).Scan(&uid)
 	utils.CheckErr(err)
 	return uid
 }
 
 func UpdateBoxoffice(w Boxoffice) bool {
-	stmt, err := DB.Prepare("update boxoffices set (movie, domestic_sales, international_sales)=($1,$2,$3) where id=$4")
+	stmt, err := DB.Prepare("update boxoffice set (movie, domestic_sales, international_sales)=($1,$2,$3) where id=$4")
 	utils.CheckErr(err)
 	defer stmt.Close()
 
@@ -39,7 +39,7 @@ func UpdateBoxoffice(w Boxoffice) bool {
 }
 
 func DeleteBoxoffice(w Boxoffice) bool {
-	stmt, err := DB.Prepare("delete from boxoffices where id=$1")
+	stmt, err := DB.Prepare("delete from boxoffice where id=$1")
 	utils.CheckErr(err)
 	defer stmt.Close()
 
@@ -57,7 +57,7 @@ func DeleteBoxoffice(w Boxoffice) bool {
 }
 
 func GetBoxoffices() []Boxoffice {
-	rows, err := DB.Query("SELECT id,movie,domestic_sales,international_sales FROM boxoffices LIMIT 1000")
+	rows, err := DB.Query("SELECT id,movie,domestic_sales,international_sales FROM boxoffice LIMIT 1000")
 	utils.CheckErr(err)
 	defer rows.Close()
 	var ws []Boxoffice
@@ -71,7 +71,7 @@ func GetBoxoffices() []Boxoffice {
 }
 
 func GetBoxofficeById(id int64) *Boxoffice {
-	rows, err := DB.Query("SELECT id,movie,domestic_sales,international_sales FROM boxoffices WHERE id=$1 LIMIT 1", id)
+	rows, err := DB.Query("SELECT id,movie,domestic_sales,international_sales FROM boxoffice WHERE id=$1 LIMIT 1", id)
 	utils.CheckErr(err)
 	defer rows.Close()
 	for rows.Next() {
@@ -84,7 +84,7 @@ func GetBoxofficeById(id int64) *Boxoffice {
 }
 
 func GetBoxofficeByMovie(movie string) *Boxoffice {
-	rows, err := DB.Query("SELECT id,movie,domestic_sales,international_sales FROM boxoffices WHERE movie=$1 LIMIT 1", id)
+	rows, err := DB.Query("SELECT id,movie,domestic_sales,international_sales FROM boxoffice WHERE movie=$1 LIMIT 1", movie)
 	utils.CheckErr(err)
 	defer rows.Close()
 	for rows.Next() {

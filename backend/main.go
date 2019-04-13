@@ -48,7 +48,7 @@ func main() {
 			boxoffice.GET("/id/:id", routes.GetBoxofficeById)
 			boxoffice.PUT("/:id", routes.UpdateBoxoffice)
 			boxoffice.DELETE("/:id", routes.DeleteBoxoffice)
-			boxoffice.GET("/boxofficeNames", routes.GetBoxoffices)
+			boxoffice.GET("", routes.GetBoxoffices)
 		}
 		studios := api.Group("/studios")
 		{
@@ -56,7 +56,7 @@ func main() {
 			studios.GET("/id/:id", routes.GetStudioById)
 			studios.PUT("/:id", routes.UpdateStudio)
 			studios.DELETE("/:id", routes.DeleteStudio)
-			studios.GET("/studiosNames", routes.GetStudios)
+			studios.GET("", routes.GetStudios)
 		}
 	}
 	router.Run(":5000")
