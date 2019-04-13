@@ -5,6 +5,9 @@ import "fmt"
 var SuccessMessage = "success"
 var IdKey = "id"
 var Email = "email"
+var Title = "title"
+var Name = "name"
+var Movie = "movie"
 
 func EntityWithIdNotExistMessage(title string) string {
 	return fmt.Sprintf("%s with id not exist", title)

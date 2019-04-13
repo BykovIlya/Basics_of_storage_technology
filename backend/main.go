@@ -34,6 +34,30 @@ func main() {
 			directors.DELETE("/:id", routes.DeleteDirector)
 			directors.GET("", routes.GetDirectors)
 		}
+		movies := api.Group("/movies")
+		{
+			movies.POST("", routes.CreateMovie)
+			movies.GET("/id/:id", routes.GetMovieById)
+			movies.PUT("/:id", routes.UpdateMovie)
+			movies.DELETE("/:id", routes.DeleteMovie)
+			movies.GET("", routes.GetMovies)
+		}
+		boxoffice := api.Group("/boxoffice")
+		{
+			boxoffice.POST("", routes.CreateBoxoffice)
+			boxoffice.GET("/id/:id", routes.GetBoxofficeById)
+			boxoffice.PUT("/:id", routes.UpdateBoxoffice)
+			boxoffice.DELETE("/:id", routes.DeleteBoxoffice)
+			boxoffice.GET("/boxofficeNames", routes.GetBoxoffices)
+		}
+		studios := api.Group("/studios")
+		{
+			studios.POST("", routes.CreateStudio)
+			studios.GET("/id/:id", routes.GetStudioById)
+			studios.PUT("/:id", routes.UpdateStudio)
+			studios.DELETE("/:id", routes.DeleteStudio)
+			studios.GET("/studiosNames", routes.GetStudios)
+		}
 	}
 	router.Run(":5000")
 }

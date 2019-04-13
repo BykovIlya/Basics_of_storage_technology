@@ -84,3 +84,16 @@ func GetMovieById(id int64) *Movie {
 	}
 	return nil
 }
+
+func GetMovieByTitle(title string) *Movie {
+	rows, err := DB.Query("SELECT id,title,director,year,length,studio FROM movies WHERE title=$1 LIMIT 1", title)
+	utils.CheckErr(err)
+	defer rows.Close()
+	for rows.Next() {
+		w := Movie{}
+		err = rows.Scan(&w.Id, &w.Title, &w.Director, &w.Year, &w.Length, &w.Studio)
+		utils.CheckErr(err)
+		return &w
+	}
+	return nil
+}

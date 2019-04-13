@@ -82,3 +82,16 @@ func GetBoxofficeById(id int64) *Boxoffice {
 	}
 	return nil
 }
+
+func GetBoxofficeByMovie(movie string) *Boxoffice {
+	rows, err := DB.Query("SELECT id,movie,domestic_sales,international_sales FROM boxoffices WHERE movie=$1 LIMIT 1", id)
+	utils.CheckErr(err)
+	defer rows.Close()
+	for rows.Next() {
+		w := Boxoffice{}
+		err = rows.Scan(&w.Id, &w.Movie, &w.Domestic_sales, &w.International_sales)
+		utils.CheckErr(err)
+		return &w
+	}
+	return nil
+}

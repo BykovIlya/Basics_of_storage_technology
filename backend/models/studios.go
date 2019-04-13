@@ -82,3 +82,16 @@ func GetStudioById(id int64) *Studio {
 	}
 	return nil
 }
+
+func GetStudioByName(name string) *Studio {
+	rows, err := DB.Query("SELECT id,name,year,all_films FROM studios WHERE name=$1 LIMIT 1", name)
+	utils.CheckErr(err)
+	defer rows.Close()
+	for rows.Next() {
+		w := Studio{}
+		err = rows.Scan(&w.Id, &w.Name, &w.Year, &w.All_films)
+		utils.CheckErr(err)
+		return &w
+	}
+	return nil
+}
