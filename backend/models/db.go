@@ -2,6 +2,7 @@ package models
 
 import (
 	"database/sql"
+	"fmt"
 	_ "github.com/lib/pq"
 	"log"
 )
@@ -21,4 +22,44 @@ func InitDB(port string) bool {
 	DB = db
 
 	return true
+}
+
+func Migrate(db *sql.DB) {
+	sql := `
+	CREATE TABLE IF NOT EXISTS movies(
+        id BIGSERIAL PRIMARY KEY NOT NULL,
+		title VARCHAR(255) NOT NULL,
+		director VARCHAR(255) NOT NULL,
+		year INTEGER,
+		length INTEGER,
+		studio VARCHAR(255) NOT NULL
+    );
+	CREATE TABLE IF NOT EXISTS directors(
+        id BIGSERIAL PRIMARY KEY NOT NULL,
+		name VARCHAR(255) NOT NULL,
+		age INTEGER,
+		gender BOOLEAN
+    );
+	CREATE TABLE IF NOT EXISTS boxoffice(
+        id BIGSERIAL PRIMARY KEY NOT NULL,
+		movie_id INTEGER,
+		domestic_sales INTEGER,
+		international_sales INTEGER
+    );
+	CREATE TABLE IF NOT EXISTS studios(
+        id BIGSERIAL PRIMARY KEY NOT NULL,
+		name VARCHAR(255) NOT NULL,
+		year INTEGER,
+		all_films INTEGER
+    );
+	`
+
+	_, err := db.Exec(sql)
+
+	if err != nil {
+		utils.CheckErr(err)
+		return
+	}
+
+	fmt.Println("Migrations successfull ended")
 }
