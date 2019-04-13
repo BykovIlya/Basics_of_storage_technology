@@ -2,6 +2,7 @@ package main
 
 import (
 	"Basics_of_storage_technology/backend/models"
+	"Basics_of_storage_technology/backend/routes"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
@@ -22,7 +23,18 @@ func main() {
 
 	router := gin.Default()
 	router.Use(CORSMiddleware())
-
+	api := router.Group("/api")
+	api.Use()
+	{
+		directors := api.Group("/directors")
+		{
+			directors.POST("", routes.CreateDirector)
+			directors.GET("/id/:id", routes.GetDirectorById)
+			directors.PUT("/:id", routes.UpdateDirector)
+			directors.DELETE("/:id", routes.DeleteDirector)
+			directors.GET("/directorsNames", routes.GetDirectors)
+		}
+	}
 	router.Run(":5000")
 }
 

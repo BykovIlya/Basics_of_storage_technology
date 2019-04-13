@@ -82,3 +82,16 @@ func GetDirectorById(id int64) *Director {
 	}
 	return nil
 }
+
+func GetDirectorByName(name string) *Director {
+	rows, err := DB.Query("SELECT id,name,age,gender FROM directors WHERE name=$1 LIMIT 1", name)
+	utils.CheckErr(err)
+	defer rows.Close()
+	for rows.Next() {
+		w := Director{}
+		err = rows.Scan(&w.Id, &w.Name, &w.Age, &w.Gender)
+		utils.CheckErr(err)
+		return &w
+	}
+	return nil
+}
