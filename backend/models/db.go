@@ -39,7 +39,8 @@ func Migrate(db *sql.DB) {
         id BIGSERIAL PRIMARY KEY NOT NULL,
 		name VARCHAR(255) NOT NULL,
 		age INTEGER,
-		gender BOOLEAN
+		gender VARCHAR(255) NOT NULL,
+		email VARCHAR(255) NOT NULL
     );
 	CREATE TABLE IF NOT EXISTS boxoffice(
         id BIGSERIAL PRIMARY KEY NOT NULL,

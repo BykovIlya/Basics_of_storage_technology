@@ -9,23 +9,24 @@ type Director struct {
 	Id     int64  `json:"id"`
 	Name   string `json:"name"`
 	Age    int64  `json:"age"`
-	Gender bool   `json:"gender"`
+	Gender string `json:"gender"`
+	Email  string `json:"email"`
 }
 
 func CreateDirector(w Director) int64 {
 	var uid int64
-	err := DB.QueryRow("INSERT INTO directors(name,age,gender) VALUES($1,$2,$3) returning id",
-		w.Name, w.Age, w.Gender).Scan(&uid)
+	err := DB.QueryRow("INSERT INTO directors(name,age,gender,email) VALUES($1,$2,$3,$4) returning id",
+		w.Name, w.Age, w.Gender, w.Email).Scan(&uid)
 	utils.CheckErr(err)
 	return uid
 }
 
 func UpdateDirector(w Director) bool {
-	stmt, err := DB.Prepare("update directors set (name, age, gender)=($1,$2,$3) where id=$4")
+	stmt, err := DB.Prepare("update directors set (name, age, gender,email)=($1,$2,$3,$4) where id=$5")
 	utils.CheckErr(err)
 	defer stmt.Close()
 
-	res, err := stmt.Exec(w.Name, w.Age, w.Gender, w.Id)
+	res, err := stmt.Exec(w.Name, w.Age, w.Gender, w.Email, w.Id)
 	utils.CheckErr(err)
 
 	affect, err := res.RowsAffected()
@@ -57,13 +58,13 @@ func DeleteDirector(w Director) bool {
 }
 
 func GetDirectors() []Director {
-	rows, err := DB.Query("SELECT id,name,age,gender FROM directors LIMIT 1000")
+	rows, err := DB.Query("SELECT id,name,age,gender,email FROM directors LIMIT 1000")
 	utils.CheckErr(err)
 	defer rows.Close()
 	var ws []Director
 	for rows.Next() {
 		w := Director{}
-		err = rows.Scan(&w.Id, &w.Name, &w.Age, &w.Gender)
+		err = rows.Scan(&w.Id, &w.Name, &w.Age, &w.Gender, &w.Email)
 		utils.CheckErr(err)
 		ws = append(ws, w)
 	}
@@ -71,12 +72,25 @@ func GetDirectors() []Director {
 }
 
 func GetDirectorById(id int64) *Director {
-	rows, err := DB.Query("SELECT id,name,age,gender FROM directors WHERE id=$1 LIMIT 1", id)
+	rows, err := DB.Query("SELECT id,name,age,gender,email FROM directors WHERE id=$1 LIMIT 1", id)
 	utils.CheckErr(err)
 	defer rows.Close()
 	for rows.Next() {
 		w := Director{}
-		err = rows.Scan(&w.Id, &w.Name, &w.Age, &w.Gender)
+		err = rows.Scan(&w.Id, &w.Name, &w.Age, &w.Gender, &w.Email)
+		utils.CheckErr(err)
+		return &w
+	}
+	return nil
+}
+
+func GetDirectorByEmail(email string) *Director {
+	rows, err := DB.Query("SELECT id,name,age,gender,email FROM directors WHERE email=$1 LIMIT 1", email)
+	utils.CheckErr(err)
+	defer rows.Close()
+	for rows.Next() {
+		w := Director{}
+		err = rows.Scan(&w.Id, &w.Name, &w.Age, &w.Gender, &w.Email)
 		utils.CheckErr(err)
 		return &w
 	}
@@ -89,7 +103,7 @@ func GetDirectorByName(name string) *Director {
 	defer rows.Close()
 	for rows.Next() {
 		w := Director{}
-		err = rows.Scan(&w.Id, &w.Name, &w.Age, &w.Gender)
+		err = rows.Scan(&w.Id, &w.Name, &w.Age, &w.Gender, &w.Email)
 		utils.CheckErr(err)
 		return &w
 	}

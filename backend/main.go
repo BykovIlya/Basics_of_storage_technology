@@ -20,7 +20,7 @@ func main() {
 	} else {
 		log.Panic("Database not initialisation")
 	}
-
+	fmt.Print(models.GetDirectors())
 	router := gin.Default()
 	router.Use(CORSMiddleware())
 	api := router.Group("/api")
@@ -32,7 +32,7 @@ func main() {
 			directors.GET("/id/:id", routes.GetDirectorById)
 			directors.PUT("/:id", routes.UpdateDirector)
 			directors.DELETE("/:id", routes.DeleteDirector)
-			directors.GET("/directorsNames", routes.GetDirectors)
+			directors.GET("", routes.GetDirectors)
 		}
 	}
 	router.Run(":5000")

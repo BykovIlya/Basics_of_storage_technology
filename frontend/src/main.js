@@ -17,7 +17,21 @@ Vue.use(VueResorce);
 import Vuex from 'vuex'
 Vue.use(Vuex);
 
-Vue.config.productionTip = false
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { library } from '@fortawesome/fontawesome-svg-core'
+
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faEdit } from '@fortawesome/free-solid-svg-icons'
+import { faEye } from '@fortawesome/free-solid-svg-icons'
+import { faPassport } from '@fortawesome/free-solid-svg-icons'
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faTrash,faEdit,faEye,faPassport,faTimesCircle);
+
+
+Vue.component('font-awesome-icon', FontAwesomeIcon);
+
+Vue.config.productionTip = false;
 
 
 const API = 'http://localhost:5000';

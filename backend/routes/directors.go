@@ -13,7 +13,7 @@ var DirectorTitle = "director"
 func CreateDirector(c *gin.Context) {
 	var w models.Director
 	if err := c.ShouldBindJSON(&w); err == nil {
-		existItem := models.GetDirectorByName(w.Name)
+		existItem := models.GetDirectorByEmail(w.Email)
 		if existItem != nil {
 			c.JSON(http.StatusUnprocessableEntity, ApiMessage{utils.EntityExistMessage(DirectorTitle)})
 		} else {
@@ -30,6 +30,16 @@ func GetDirectorById(c *gin.Context) {
 	id, err := strconv.ParseInt(idParam, 10, 64)
 	utils.CheckErr(err)
 	w := models.GetDirectorById(id)
+	if w != nil {
+		c.JSON(http.StatusOK, w)
+	} else {
+		c.JSON(http.StatusNotFound, ApiMessage{utils.EntityNotExistMessage(DirectorTitle)})
+	}
+}
+
+func GetDirectorByEmail(c *gin.Context) {
+	idParam := c.Param(utils.Email)
+	w := models.GetDirectorByEmail(idParam)
 	if w != nil {
 		c.JSON(http.StatusOK, w)
 	} else {
@@ -73,5 +83,5 @@ func DeleteDirector(c *gin.Context) {
 }
 
 func GetDirectors(c *gin.Context) {
-	c.JSON(http.StatusOK, models.GetDirectors)
+	c.JSON(http.StatusOK, models.GetDirectors())
 }
