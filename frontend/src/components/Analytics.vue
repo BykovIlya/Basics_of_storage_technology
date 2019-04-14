@@ -54,7 +54,23 @@
                             </b-table>
                         </b-card>
                     </b-tab>
-                    <b-tab title="Запрос 3"><b-card-text>Запрос 3</b-card-text></b-tab>
+                    <b-tab title="Запрос 3"><b-card-text>Запрос 3. Показать общую прибыль студий от фильмов из таблицы Фильмы. Сортировать по убыванию</b-card-text>
+                        <b-card>
+                            <b-button variant="dark" class="m-1" @click="handleSubmit3('req3')">Результат</b-button>
+                            <b-table id="req3"
+                                     striped
+                                     show-empty
+                                     :items="itemsReq3"
+                                     :fields="fieldsReq3"
+                                     :current-page="currentPageReq3"
+                                     :per-page="perPageReq3"
+                                     :total-rows="totalRowsReq3"
+                                     :busy.sync="isBusyReq3"
+                                     ref="table"
+                            >
+                            </b-table>
+                        </b-card>
+                    </b-tab>
                     <b-tab title="Запрос 4"><b-card-text>Запрос 4</b-card-text></b-tab>
                     <b-tab title="Запрос 5"><b-card-text>Запрос 5</b-card-text></b-tab>
                     <b-tab title="Запрос 6"><b-card-text>Запрос 6</b-card-text></b-tab>
@@ -120,6 +136,23 @@
                         key: 'films',
                     },
                 ],
+
+                req3: '',
+                currentPageReq3: 1,
+                perPageReq3: 1000,
+                isBusyReq3: false,
+                totalRowsReq3: 0,
+                itemsReq3:[],
+                fieldsReq3: [
+                    {
+                        label: 'Студия',
+                        key: 'studio',
+                    },
+                    {
+                        label: 'Общий доход',
+                        key: 'total',
+                    },
+                ],
             }
         },
         created() {
@@ -140,6 +173,14 @@
                 this.$http.get(url).then(result => {
                     console.log(result);
                     this.getItems2(mreqnum)
+                })
+            },
+            handleSubmit3(reqnum) {
+                let mreqnum = new String(reqnum)
+                let url = this.formURL + "/" + mreqnum;
+                this.$http.get(url).then(result => {
+                    console.log(result);
+                    this.getItems3(mreqnum)
                 })
             },
             getItems(reqnum,req){
@@ -185,6 +226,29 @@
                     return []
                 },error =>{
                     this.isBusyReq2 = false;
+                    console.log("ERROR",error);
+                });
+            },
+            getItems3(reqnum){
+                /*if (this.req3.length == 0){
+                    this.itemsReq3 = [];
+                    return;
+                }*/
+                let url = this.formURL + "/" + reqnum;
+                this.isBusyReq3 = true;
+                return this.$http.get(url).then(result => {
+                    console.log(result);
+                    if (result.status === 200 || result.status === 304 ){
+                        if(result.body.length > 0) {
+                            this.itemsReq3 = result.body;
+                            return result.body
+                        }
+                    }
+                    this.isBusyReq3 = false;
+                    this.itemsReq3 = [];
+                    return []
+                },error =>{
+                    this.isBusyReq3 = false;
                     console.log("ERROR",error);
                 });
             },

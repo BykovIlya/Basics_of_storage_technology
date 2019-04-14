@@ -44,3 +44,22 @@ func GetReq2() []Request_2 {
 	}
 	return ws
 }
+
+type Request_3 struct {
+	Studio string `json:"studio"`
+	Total  string `json:"total"`
+}
+
+func GetReq3() []Request_3 {
+	rows, err := DB.Query("SELECT studio, sum(domestic_sales+international_sales) from movies left join boxoffice on movies.title = boxoffice.movie group by movies.studio order by  sum(domestic_sales+international_sales) DESC ")
+	utils.CheckErr(err)
+	defer rows.Close()
+	var ws []Request_3
+	for rows.Next() {
+		w := Request_3{}
+		err = rows.Scan(&w.Studio, &w.Total)
+		utils.CheckErr(err)
+		ws = append(ws, w)
+	}
+	return ws
+}

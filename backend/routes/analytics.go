@@ -23,3 +23,7 @@ func GetReq1(c *gin.Context) {
 func GetReq2(c *gin.Context) {
 	c.JSON(http.StatusOK, models.GetReq2())
 }
+
+func GetReq3(c *gin.Context) {
+	c.JSON(http.StatusOK, models.GetReq3())
+}

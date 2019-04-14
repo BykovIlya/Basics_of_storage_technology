@@ -62,6 +62,7 @@ func main() {
 		{
 			analytics.GET("/req1/:id", routes.GetReq1)
 			analytics.GET("/req2", routes.GetReq2)
+			analytics.GET("/req3", routes.GetReq3)
 		}
 	}
 	router.Run(":5000")
