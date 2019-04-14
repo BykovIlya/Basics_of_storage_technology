@@ -19,3 +19,7 @@ func GetReq1(c *gin.Context) {
 		c.JSON(http.StatusNotFound, ApiMessage{utils.EntityNotExistMessage("req1")})
 	}
 }
+
+func GetReq2(c *gin.Context) {
+	c.JSON(http.StatusOK, models.GetReq2())
+}

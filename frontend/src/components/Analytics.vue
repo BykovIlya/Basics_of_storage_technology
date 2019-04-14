@@ -6,33 +6,54 @@
         <div>
             <b-card no-body>
                 <b-tabs pills card vertical type="dark">
-                    <b-tab title="Запрос 1" active><b-card-text>Запрос 1</b-card-text>
-                        <b-btn v-b-modal.modalreq1>Введите id покупателя</b-btn>
-                        <b-table id="req1"
-                                 striped
-                                 show-empty
-                                 :items="itemsReq1"
-                                 :fields="fieldsReq1"
-                                 :current-page="currentPageReq1"
-                                 :per-page="perPageReq1"
-                                 :total-rows="totalRowsReq1"
-                                 :busy.sync="isBusyReq1"
-                                 ref="table"
-                        >
-                        </b-table>
-                        <b-modal id="modalreq1"
-                                 ref="modal"
-                                 title="Enter the total sales"
-                                 @ok="handleOkreq1"
-                                 @shown="clearNamereq1">
-                            <form @submit.stop.prevent="handleSubmitreq1">
+                    <b-tab title="Запрос 1" active><b-card-text>Запрос 1. Вывести год выпуска и студию фильмов, чья общая выручка превосходит указанное значение</b-card-text>
+
+                        <b-card>
+                            <b-form inline
+                                    id="fieldset-horizontal"
+                                    label-cols-sm="4"
+                                    label-cols-lg="3"
+                                    label-for="input-horizontal"
+                                    @submit.stop.prevent="handleSubmit('req1',req1)"
+                            >
+                                <label>Введите общую выручку :   </label>
                                 <b-form-input type="text"
-                                              placeholder="Enter the total sales"
+                                              placeholder="например 1000000000"
                                               v-model="req1"></b-form-input>
-                            </form>
-                        </b-modal>
+                                <b-button variant="dark" class="m-1" @click="handleSubmit('req1',req1)">Результат</b-button>
+
+                            </b-form>
+                            <b-table id="req1"
+                                     striped
+                                     show-empty
+                                     :items="itemsReq1"
+                                     :fields="fieldsReq1"
+                                     :current-page="currentPageReq1"
+                                     :per-page="perPageReq1"
+                                     :total-rows="totalRowsReq1"
+                                     :busy.sync="isBusyReq1"
+                                     ref="table"
+                            >
+                            </b-table>
+                        </b-card>
                     </b-tab>
-                    <b-tab title="Запрос 2"><b-card-text>Запрос 2</b-card-text></b-tab>
+                    <b-tab title="Запрос 2"><b-card-text>Запрос 2. Показать директоров, у которых более одного фильма в таблице Фильмы</b-card-text>
+                        <b-card>
+                            <b-button variant="dark" class="m-1" @click="handleSubmit2('req2')">Результат</b-button>
+                            <b-table id="req2"
+                                     striped
+                                     show-empty
+                                     :items="itemsReq2"
+                                     :fields="fieldsReq2"
+                                     :current-page="currentPageReq2"
+                                     :per-page="perPageReq2"
+                                     :total-rows="totalRowsReq2"
+                                     :busy.sync="isBusyReq2"
+                                     ref="table"
+                            >
+                            </b-table>
+                        </b-card>
+                    </b-tab>
                     <b-tab title="Запрос 3"><b-card-text>Запрос 3</b-card-text></b-tab>
                     <b-tab title="Запрос 4"><b-card-text>Запрос 4</b-card-text></b-tab>
                     <b-tab title="Запрос 5"><b-card-text>Запрос 5</b-card-text></b-tab>
@@ -83,35 +104,50 @@
                         key: 'total_sales',
                     },
                 ],
+                req2: '',
+                currentPageReq2: 1,
+                perPageReq2: 1000,
+                isBusyReq2: false,
+                totalRowsReq2: 0,
+                itemsReq2:[],
+                fieldsReq2: [
+                    {
+                        label: 'Директор',
+                        key: 'director',
+                    },
+                    {
+                        label: 'Количество фильмов',
+                        key: 'films',
+                    },
+                ],
             }
         },
+        created() {
+        },
         methods:{
-            clearNamereq1 () {
-                this.req1 = ''
-            },
-            handleOkreq1 (evt) {
-                evt.preventDefault();
-                if (!this.req1) {
-                    alert('Please enter the total sales')
-                } else {
-                    this.handleSubmitreq1()
-                }
-            },
-            handleSubmitreq1() {
-                let req1 = new String(this.req1)
-                let url = this.formURL + "/req1/" + req1;
+            handleSubmit(reqnum,req) {
+                let mreqnum = new String(reqnum)
+                let mreq = new String(req)
+                let url = this.formURL + "/" + mreqnum + "/" + mreq;
                 this.$http.get(url).then(result => {
                     console.log(result);
-                    this.$refs.modal.hide();
-                    this.getItems(req1)
+                    this.getItems(mreqnum,mreq)
                 })
             },
-            getItems(req1){
+            handleSubmit2(reqnum) {
+                let mreqnum = new String(reqnum)
+                let url = this.formURL + "/" + mreqnum;
+                this.$http.get(url).then(result => {
+                    console.log(result);
+                    this.getItems2(mreqnum)
+                })
+            },
+            getItems(reqnum,req){
                 if (this.req1.length ==0){
                     this.itemsReq1 = [];
                     return;
                 }
-                let url = this.formURL + "/req1/" + req1;
+                let url = this.formURL + "/" + reqnum + "/" + req;
                 this.isBusyReq1 = true;
                 return this.$http.get(url).then(result => {
                     console.log(result);
@@ -126,6 +162,29 @@
                     return []
                 },error =>{
                     this.isBusyReq1 = false;
+                    console.log("ERROR",error);
+                });
+            },
+            getItems2(reqnum){
+                /*if (this.req2.length == 0){
+                    this.itemsReq2 = [];
+                    return;
+                }*/
+                let url = this.formURL + "/" + reqnum;
+                this.isBusyReq2 = true;
+                return this.$http.get(url).then(result => {
+                    console.log(result);
+                    if (result.status === 200 || result.status === 304 ){
+                        if(result.body.length > 0) {
+                            this.itemsReq2 = result.body;
+                            return result.body
+                        }
+                    }
+                    this.isBusyReq2 = false;
+                    this.itemsReq2 = [];
+                    return []
+                },error =>{
+                    this.isBusyReq2 = false;
                     console.log("ERROR",error);
                 });
             },

@@ -25,3 +25,22 @@ func GetReq1(x int64) []Request_1 {
 	}
 	return ws
 }
+
+type Request_2 struct {
+	Director string `json:"director"`
+	Films    int64  `json:"films"`
+}
+
+func GetReq2() []Request_2 {
+	rows, err := DB.Query("SELECT director, count(*) from movies group by director having count(*)>1")
+	utils.CheckErr(err)
+	defer rows.Close()
+	var ws []Request_2
+	for rows.Next() {
+		w := Request_2{}
+		err = rows.Scan(&w.Director, &w.Films)
+		utils.CheckErr(err)
+		ws = append(ws, w)
+	}
+	return ws
+}
