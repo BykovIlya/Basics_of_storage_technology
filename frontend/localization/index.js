@@ -120,6 +120,10 @@ const messages = {
                         international_sales: "введите международные сборы",
                     },
                 }
+            },
+
+            analytics: {
+              title: "Аналитика"
             }
 
         }

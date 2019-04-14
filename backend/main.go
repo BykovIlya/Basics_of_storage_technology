@@ -58,6 +58,10 @@ func main() {
 			studios.DELETE("/:id", routes.DeleteStudio)
 			studios.GET("", routes.GetStudios)
 		}
+		analytics := api.Group("/analytics")
+		{
+			analytics.GET("/req1/:id", routes.GetReq1)
+		}
 	}
 	router.Run(":5000")
 }

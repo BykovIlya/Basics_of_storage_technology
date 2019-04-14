@@ -1,9 +1,11 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Directors from './components/Directors'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Directors from './components/Directors';
 import Boxoffice from "./components/Boxoffice";
 import Studios from "./components/Studios";
-import Movies from "./components/Movies"
+import Movies from "./components/Movies";
+import Analytics from "./components/Analytics";
+
 Vue.use(Router);
 
 export default new Router({
@@ -27,6 +29,11 @@ export default new Router({
       path: '/studios',
       name: 'Studios',
       component: Studios
+    },
+    {
+      path: '/analytics',
+      name: 'Analytics',
+      component: Analytics
     },
   ]
 })

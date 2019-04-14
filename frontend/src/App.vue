@@ -8,6 +8,7 @@
           <b-nav-item :to="{ name: 'Directors'}">{{ $t("message.directors.title") }}</b-nav-item>
           <b-nav-item :to="{ name: 'Movies'}">{{ $t("message.movies.title") }}</b-nav-item>
           <b-nav-item :to="{ name: 'Studios'}">{{ $t("message.studios.title") }}</b-nav-item>
+          <b-nav-item :to="{ name: 'Analytics'}">{{ $t("message.analytics.title") }}</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
