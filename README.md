@@ -359,12 +359,25 @@
 
 Описание:
 
-Выбрать названия фильмов, возраст директора которых совпадает с возрастом любого другого директора
+Показать самый дорогой фильм Кристофера Нолана
 
 Код:
 
 ```
-
+    select movie, (domestic_sales+international_sales)  
+    from (boxoffice 
+        inner join movies 
+        on boxoffice.movie = movies.title 
+        and movies.director='Кристофер Нолан' 
+        and (domestic_sales+international_sales) = (
+            select max(domestic_sales+international_sales)  
+            from (boxoffice 
+                inner join movies 
+                on boxoffice.movie = movies.title 
+                and movies.director='Кристофер Нолан'
+            )
+        )
+    )
 ```
 
 Результат
@@ -375,10 +388,15 @@
 
 Описание:
 
+Показать студии, которые имеют фильмы длиной более 120 минут. Показать количество таких фильмов у каждой студии
+
 Код:
 
 ```
-
+    select studio, count(*) 
+    from movies 
+    where length > 120 
+    group by studio
 ```
 
 Результат
@@ -389,10 +407,16 @@
 
 Описание:
 
+Посчитать процентное соотношение студий в таблице Фильмы
+
 Код:
 
 ```
-
+    select studio, cast ((cast(cnt as float) / (select count(*) from movies) * 100) as char(4))  
+    from (
+        select studio, count(*) as cnt 
+        from movies 
+        group by studio) movies
 ```
 
 Результат
@@ -403,9 +427,13 @@
 
 Описание:
 
+Посчитать количество вхождений буквы "е" в столбце Название таблицы Студии
+
 Код:
 
 ```
+     SELECT SUM(ROUND ( LENGTH(name)- LENGTH( REPLACE ( name, 'e', '') )) ) 
+     FROM studios 
 
 ```
 

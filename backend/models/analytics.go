@@ -199,19 +199,18 @@ func GetReq10() []SimpleRequest {
 }
 
 type Request_11 struct {
-	Movie    string `json:"movie"`
-	Director string `json:"director"`
-	Age      string `json:"age"`
+	Movie string `json:"movie"`
+	Total int64  `json:"total"`
 }
 
 func GetReq11() []Request_11 {
-	rows, err := DB.Query("select studio, cast ((cast(cnt as float) / all_films * 100) as char(4))  from (select studio, count(*) as cnt from movies group by studio) movies join studios on movies.studio = studios.name")
+	rows, err := DB.Query("select movie, (domestic_sales+international_sales)  from (boxoffice inner join movies on boxoffice.movie = movies.title and movies.director='Кристофер Нолан' and (domestic_sales+international_sales) = (select max(domestic_sales+international_sales)  from (boxoffice inner join movies on boxoffice.movie = movies.title and movies.director='Кристофер Нолан')))")
 	utils.CheckErr(err)
 	defer rows.Close()
 	var ws []Request_11
 	for rows.Next() {
 		w := Request_11{}
-		err = rows.Scan(&w.Movie, &w.Director, &w.Age)
+		err = rows.Scan(&w.Movie, &w.Total)
 		utils.CheckErr(err)
 		ws = append(ws, w)
 	}
@@ -219,19 +218,18 @@ func GetReq11() []Request_11 {
 }
 
 type Request_12 struct {
-	Movie    string `json:"movie"`
-	Director string `json:"director"`
-	Age      string `json:"age"`
+	Studio string `json:"studio"`
+	Films  string `json:"films"`
 }
 
 func GetReq12() []Request_12 {
-	rows, err := DB.Query("select studio, cast ((cast(cnt as float) / all_films * 100) as char(4))  from (select studio, count(*) as cnt from movies group by studio) movies join studios on movies.studio = studios.name")
+	rows, err := DB.Query("select studio, count(*) from movies where length > 120 group by studio")
 	utils.CheckErr(err)
 	defer rows.Close()
 	var ws []Request_12
 	for rows.Next() {
 		w := Request_12{}
-		err = rows.Scan(&w.Movie, &w.Director, &w.Age)
+		err = rows.Scan(&w.Studio, &w.Films)
 		utils.CheckErr(err)
 		ws = append(ws, w)
 	}
@@ -239,39 +237,32 @@ func GetReq12() []Request_12 {
 }
 
 type Request_13 struct {
-	Movie    string `json:"movie"`
-	Director string `json:"director"`
-	Age      string `json:"age"`
+	Studio  string `json:"studio"`
+	Percent string `json:"percent"`
 }
 
 func GetReq13() []Request_13 {
-	rows, err := DB.Query("select studio, cast ((cast(cnt as float) / all_films * 100) as char(4))  from (select studio, count(*) as cnt from movies group by studio) movies join studios on movies.studio = studios.name")
+	rows, err := DB.Query("select studio, cast ((cast(cnt as float) / (select count(*) from movies) * 100) as char(4))  from (select studio, count(*) as cnt from movies group by studio) movies")
 	utils.CheckErr(err)
 	defer rows.Close()
 	var ws []Request_13
 	for rows.Next() {
 		w := Request_13{}
-		err = rows.Scan(&w.Movie, &w.Director, &w.Age)
+		err = rows.Scan(&w.Studio, &w.Percent)
 		utils.CheckErr(err)
 		ws = append(ws, w)
 	}
 	return ws
 }
 
-type Request_14 struct {
-	Movie    string `json:"movie"`
-	Director string `json:"director"`
-	Age      string `json:"age"`
-}
-
-func GetReq14() []Request_14 {
-	rows, err := DB.Query("select studio, cast ((cast(cnt as float) / all_films * 100) as char(4))  from (select studio, count(*) as cnt from movies group by studio) movies join studios on movies.studio = studios.name")
+func GetReq14() []SimpleRequest {
+	rows, err := DB.Query(" SELECT SUM(ROUND ( LENGTH(name)- LENGTH( REPLACE ( name, 'e', '') )) )  FROM studios ")
 	utils.CheckErr(err)
 	defer rows.Close()
-	var ws []Request_14
+	var ws []SimpleRequest
 	for rows.Next() {
-		w := Request_14{}
-		err = rows.Scan(&w.Movie, &w.Director, &w.Age)
+		w := SimpleRequest{}
+		err = rows.Scan(&w.Answer)
 		utils.CheckErr(err)
 		ws = append(ws, w)
 	}
@@ -279,19 +270,19 @@ func GetReq14() []Request_14 {
 }
 
 type Request_15 struct {
-	Movie    string `json:"movie"`
-	Director string `json:"director"`
-	Age      string `json:"age"`
+	Movie  string `json:"movie"`
+	Year   int64  `json:"year"`
+	Length int64  `json:"length"`
 }
 
 func GetReq15() []Request_15 {
-	rows, err := DB.Query("select studio, cast ((cast(cnt as float) / all_films * 100) as char(4))  from (select studio, count(*) as cnt from movies group by studio) movies join studios on movies.studio = studios.name")
+	rows, err := DB.Query("select title, year, length from movies where year between 1900 and 1999 and length between 100 and 125")
 	utils.CheckErr(err)
 	defer rows.Close()
 	var ws []Request_15
 	for rows.Next() {
 		w := Request_15{}
-		err = rows.Scan(&w.Movie, &w.Director, &w.Age)
+		err = rows.Scan(&w.Movie, &w.Year, &w.Length)
 		utils.CheckErr(err)
 		ws = append(ws, w)
 	}

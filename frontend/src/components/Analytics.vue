@@ -208,7 +208,7 @@
                             </b-table>
                         </b-card>
                     </b-tab>
-                    <b-tab title="Запрос 11"><b-card-text>Запрос 11. Выбрать названия фильмов, возраст директора которых совпадает с возрастом любого другого директора</b-card-text>
+                    <b-tab title="Запрос 11"><b-card-text>Запрос 11. Показать самый дорогой фильм Кристофера Нолана</b-card-text>
                         <b-card>
                             <b-button variant="dark" class="m-1" @click="handleSubmit11('req11')">Результат</b-button>
                             <b-table id="req11"
@@ -225,7 +225,7 @@
                             </b-table>
                         </b-card>
                     </b-tab>
-                    <b-tab title="Запрос 12"><b-card-text>Запрос 12.</b-card-text>
+                    <b-tab title="Запрос 12"><b-card-text>Запрос 12. Показать студии, которые имеют фильмы длиной более 120 минут. Показать количество таких фильмов у каждой студии</b-card-text>
                         <b-card>
                             <b-button variant="dark" class="m-1" @click="handleSubmit12('req12')">Результат</b-button>
                             <b-table id="req12"
@@ -242,7 +242,7 @@
                             </b-table>
                         </b-card>
                     </b-tab>
-                    <b-tab title="Запрос 13"><b-card-text>Запрос 13.</b-card-text>
+                    <b-tab title="Запрос 13"><b-card-text>Запрос 13. Посчитать процентное соотношение студий в таблице Фильмы</b-card-text>
                         <b-card>
                             <b-button variant="dark" class="m-1" @click="handleSubmit13('req13')">Результат</b-button>
                             <b-table id="req13"
@@ -259,7 +259,7 @@
                             </b-table>
                         </b-card>
                     </b-tab>
-                    <b-tab title="Запрос 14"><b-card-text>Запрос 14.</b-card-text>
+                    <b-tab title="Запрос 14"><b-card-text>Запрос 14. Посчитать количество вхождений буквы "е" в столбце Название таблицы Студии</b-card-text>
                         <b-card>
                             <b-button variant="dark" class="m-1" @click="handleSubmit14('req14')">Результат</b-button>
                             <b-table id="req14"
@@ -276,7 +276,7 @@
                             </b-table>
                         </b-card>
                     </b-tab>
-                    <b-tab title="Запрос 15"><b-card-text>Запрос 15.</b-card-text>
+                    <b-tab title="Запрос 15"><b-card-text>Запрос 15. Показать все фильмы с 1990 по 1999 с длительностью от 100 до 125 минут</b-card-text>
                         <b-card>
                             <b-button variant="dark" class="m-1" @click="handleSubmit15('req15')">Результат</b-button>
                             <b-table id="req15"
@@ -487,68 +487,88 @@
                     },
                 ],
 
-                req10: '',
-                currentPageReq10: 1,
-                perPageReq10: 1000,
-                isBusyReq10: false,
-                totalRowsReq10: 0,
-                itemsReq10:[],
-                fieldsReq10: [
+                req11: '',
+                currentPageReq11: 1,
+                perPageReq11: 1000,
+                isBusyReq11: false,
+                totalRowsReq11: 0,
+                itemsReq11:[],
+                fieldsReq11: [
                     {
-                        label: 'Возраст почти самого старого директора',
+                        label: 'Фильм',
+                        key: 'movie',
+                    },
+                    {
+                        label: 'Общие сборы',
+                        key: 'total',
+                    }
+                ],
+
+                req12: '',
+                currentPageReq12: 1,
+                perPageReq12: 1000,
+                isBusyReq12: false,
+                totalRowsReq12: 0,
+                itemsReq12:[],
+                fieldsReq12: [
+                    {
+                        label: 'Cтудия',
+                        key: 'studio',
+                    },
+                    {
+                        label: 'Фильмы длинее 120 минут',
+                        key: 'films',
+                    }
+                ],
+
+                req13: '',
+                currentPageReq13: 1,
+                perPageReq13: 1000,
+                isBusyReq13: false,
+                totalRowsReq13: 0,
+                itemsReq13:[],
+                fieldsReq13: [
+                    {
+                        label: 'Студия',
+                        key: 'studio',
+                    },
+                    {
+                        label: 'Процент фильмов',
+                        key: 'percent',
+                    },
+                ],
+
+                req14: '',
+                currentPageReq14: 1,
+                perPageReq14: 1000,
+                isBusyReq14: false,
+                totalRowsReq14: 0,
+                itemsReq14:[],
+                fieldsReq14: [
+                    {
+                        label: 'Букв "е" всего',
                         key: 'answer',
                     },
                 ],
 
-                req10: '',
-                currentPageReq10: 1,
-                perPageReq10: 1000,
-                isBusyReq10: false,
-                totalRowsReq10: 0,
-                itemsReq10:[],
-                fieldsReq10: [
+                req15: '',
+                currentPageReq15: 1,
+                perPageReq15: 1000,
+                isBusyReq15: false,
+                totalRowsReq15: 0,
+                itemsReq15:[],
+                fieldsReq15: [
                     {
-                        label: 'Возраст почти самого старого директора',
-                        key: 'answer',
+                        label: 'Фильм',
+                        key: 'movie',
                     },
-                ],
-
-                req10: '',
-                currentPageReq10: 1,
-                perPageReq10: 1000,
-                isBusyReq10: false,
-                totalRowsReq10: 0,
-                itemsReq10:[],
-                fieldsReq10: [
                     {
-                        label: 'Возраст почти самого старого директора',
-                        key: 'answer',
+                        label: 'Год',
+                        key: 'year',
                     },
-                ],
-
-                req10: '',
-                currentPageReq10: 1,
-                perPageReq10: 1000,
-                isBusyReq10: false,
-                totalRowsReq10: 0,
-                itemsReq10:[],
-                fieldsReq10: [
                     {
-                        label: 'Возраст почти самого старого директора',
-                        key: 'answer',
-                    },
-                ],
-
-                req10: '',
-                currentPageReq10: 1,
-                perPageReq10: 1000,
-                isBusyReq10: false,
-                totalRowsReq10: 0,
-                itemsReq10:[],
-                fieldsReq10: [
-                    {
-                        label: 'Возраст почти самого старого директора',
-                        key: 'answer',
+                        label: 'Длительность',
+                        key: 'length',
                     },
                 ],
             }
