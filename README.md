@@ -137,10 +137,15 @@
 
 Описание:
 
+Вывести год выпуска и студию фильмов, чья общая выручка превосходит указанное значение
+
 Код:
 
 ```
-
+    SELECT title,year,studio,(domestic_sales+international_sales) "+
+    		"FROM movies JOIN boxoffice "+
+    		"ON movies.title = boxoffice.movie "+
+    		"WHERE domestic_sales+international_sales > $1
 ```
 
 Результат
@@ -151,9 +156,15 @@
 
 Описание:
 
+Показать директоров, у которых более одного фильма в таблице Фильмы
+
 Код:
 
 ```
+    SELECT director, count(*) 
+    from movies 
+    group by director 
+    having count(*)>1
 
 ```
 
@@ -165,9 +176,17 @@
 
 Описание:
 
+Показать общую прибыль студий от фильмов из таблицы Фильмы. Сортировать по убыванию
+
 Код:
 
 ```
+    SELECT studio, sum(domestic_sales+international_sales) 
+    from movies 
+    left join boxoffice 
+    on movies.title = boxoffice.movie 
+    group by movies.studio 
+    order by  sum(domestic_sales+international_sales) DESC
 
 ```
 
@@ -179,9 +198,15 @@
 
 Описание:
 
+Показать директоров и их возраст, работающих со студией Universal Studios. Сортировать по старшинству
+
 Код:
 
 ```
+    SELECT DISTINCT director, age from movies 
+    inner join directors 
+    on movies.director = directors.name and movies.studio = 'Universal Studios' 
+    order by age DESC
 
 ```
 
@@ -193,10 +218,20 @@
 
 Описание:
 
+Показать директоров-мужчин, снявших менее 2х фильмов и пользующихся почтой gmail
+
 Код:
 
 ```
-
+    select director, cnt, gender, email 
+    from (
+        select director, count(*) as cnt 
+        from movies 
+        group by director 
+        having count(*)<2) 
+    movies 
+    join directors 
+    on movies.director = directors.name and gender = 'муж.' and email LIKE '%@gmail.com
 ```
 
 Результат
@@ -207,10 +242,27 @@
 
 Описание:
 
+Показать самую молодую студию, снявшую более одного фильма из таблицы Фильмы
+
 Код:
 
 ```
-
+    select studio, year, cnt 
+    from (
+        select studio, count(*) as cnt 
+        from movies 
+        group by studio 
+        having count(*)>1) 
+    movies join studios 
+    on movies.studio = studios.name 
+    where year = (
+        SELECT MAX(year) 
+        FROM (
+            select studio, count(*) as cnt 
+            from movies 
+            group by studio 
+            having count(*)>1) 
+        movies join studios on movies.studio = studios.name)
 ```
 
 Результат
@@ -221,9 +273,17 @@
 
 Описание:
 
+Показать процент фильмов студий, показанных в таблице, от общего числа фильмов студий для каждой студии
+
 Код:
 
 ```
+    select studio, cast ((cast(cnt as float) / all_films * 100) as char(4))  
+    from (
+        select studio, count(*) as cnt 
+        from movies group by studio) 
+    movies join studios 
+    on movies.studio = studios.name
 
 ```
 
@@ -235,9 +295,18 @@
 
 Описание:
 
+Показать общую длительность фильмов, снятых студиями, открытыми после указанного года
+
 Код:
 
 ```
+    select studio, len  
+    from (
+        select studio, sum(length) as len 
+        from movies group by studio) 
+    movies join studios 
+    on movies.studio = studios.name 
+    where studios.year > $1
 
 ```
 
@@ -249,9 +318,14 @@
 
 Описание:
 
+Показать средний год выпуска фильмов, длительность которых выше указанной
+
 Код:
 
 ```
+    select cast(avg(year) as char(4)) 
+    from movies 
+    where length > $1
 
 ```
 
@@ -263,9 +337,17 @@
 
 Описание:
 
+Выбрать возраст второго по старшинству директора
+
 Код:
 
 ```
+    select studio, cast ((cast(cnt as float) / all_films * 100) as char(4))  
+    from (
+        select studio, count(*) as cnt 
+        from movies group by studio) 
+    movies join studios 
+    on movies.studio = studios.name
 
 ```
 
@@ -276,6 +358,8 @@
 #### 2.11 Запрос 11
 
 Описание:
+
+Выбрать названия фильмов, возраст директора которых совпадает с возрастом любого другого директора
 
 Код:
 
