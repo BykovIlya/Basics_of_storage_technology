@@ -116,26 +116,182 @@
                         >
                         </b-table>
                     </b-tab>
-                    <b-tab title="Запрос 7"><b-card-text>Запрос 7. Показать процент фильмов студий, показанных в таблице, от общего числа фильмов студий</b-card-text>
-
+                    <b-tab title="Запрос 7"><b-card-text>Запрос 7. Показать процент фильмов студий, показанных в таблице, от общего числа фильмов студий для каждой студии</b-card-text>
+                        <b-button variant="dark" class="m-1" @click="handleSubmit7('req7')">Результат</b-button>
+                        <b-table id="req7"
+                                 striped
+                                 show-empty
+                                 :items="itemsReq7"
+                                 :fields="fieldsReq7"
+                                 :current-page="currentPageReq7"
+                                 :per-page="perPageReq7"
+                                 :total-rows="totalRowsReq7"
+                                 :busy.sync="isBusyReq7"
+                                 ref="table"
+                        >
+                        </b-table>
                     </b-tab>
                     <b-tab title="Запрос 8"><b-card-text>Запрос 8. Показать общую длительность фильмов, снятых студиями, открытыми после указанного года</b-card-text>
+                        <b-card>
+                            <b-form inline
+                                    id="fieldset-horizontal2"
+                                    label-cols-sm="4"
+                                    label-cols-lg="3"
+                                    label-for="input-horizontal2"
+                                    @submit.stop.prevent="handleSubmit8('req8',req8)"
+                            >
+                                <label>Введите год :   </label>
+                                <b-form-input type="text"
+                                              placeholder="20 век"
+                                              v-model="req8"></b-form-input>
+                                <b-button variant="dark" class="m-1" @click="handleSubmit8('req8',req8)">Результат</b-button>
 
+                            </b-form>
+                            <b-table id="req8"
+                                     striped
+                                     show-empty
+                                     :items="itemsReq8"
+                                     :fields="fieldsReq8"
+                                     :current-page="currentPageReq8"
+                                     :per-page="perPageReq8"
+                                     :total-rows="totalRowsReq8"
+                                     :busy.sync="isBusyReq8"
+                                     ref="table"
+                            >
+                            </b-table>
+                        </b-card>
                     </b-tab>
                     <b-tab title="Запрос 9"><b-card-text>Запрос 9. Показать средний год выпуска фильмов, длительность которых выше указанной</b-card-text>
+                        <b-card>
+                            <b-form inline
+                                    id="fieldset-horizontal3"
+                                    label-cols-sm="4"
+                                    label-cols-lg="3"
+                                    label-for="input-horizontal3"
+                                    @submit.stop.prevent="handleSubmit9('req9',req9)"
+                            >
+                                <label>Введите длительность фильма :   </label>
+                                <b-form-input type="text"
+                                              placeholder=" от 90 мин"
+                                              v-model="req9"></b-form-input>
+                                <b-button variant="dark" class="m-1" @click="handleSubmit9('req9',req9)">Результат</b-button>
 
+                            </b-form>
+                            <b-table id="req9"
+                                     striped
+                                     show-empty
+                                     :items="itemsReq9"
+                                     :fields="fieldsReq9"
+                                     :current-page="currentPageReq9"
+                                     :per-page="perPageReq9"
+                                     :total-rows="totalRowsReq9"
+                                     :busy.sync="isBusyReq9"
+                                     ref="table"
+                            >
+                            </b-table>
+                        </b-card>
                     </b-tab>
-                    <b-tab title="Запрос 10"><b-card-text>Запрос 10</b-card-text>
+                    <b-tab title="Запрос 10"><b-card-text>Запрос 10. Выбрать возраст второго по старшинству директора</b-card-text>
+                        <b-card>
+                            <b-button variant="dark" class="m-1" @click="handleSubmit10('req10')">Результат</b-button>
+                            <b-table id="req10"
+                                     striped
+                                     show-empty
+                                     :items="itemsReq10"
+                                     :fields="fieldsReq10"
+                                     :current-page="currentPageReq10"
+                                     :per-page="perPageReq10"
+                                     :total-rows="totalRowsReq10"
+                                     :busy.sync="isBusyReq10"
+                                     ref="table"
+                            >
+                            </b-table>
+                        </b-card>
                     </b-tab>
-                    <b-tab title="Запрос 11"><b-card-text>Запрос 11</b-card-text>
+                    <b-tab title="Запрос 11"><b-card-text>Запрос 11. Выбрать названия фильмов, возраст директора которых совпадает с возрастом любого другого директора</b-card-text>
+                        <b-card>
+                            <b-button variant="dark" class="m-1" @click="handleSubmit11('req11')">Результат</b-button>
+                            <b-table id="req11"
+                                     striped
+                                     show-empty
+                                     :items="itemsReq11"
+                                     :fields="fieldsReq11"
+                                     :current-page="currentPageReq11"
+                                     :per-page="perPageReq11"
+                                     :total-rows="totalRowsReq11"
+                                     :busy.sync="isBusyReq11"
+                                     ref="table"
+                            >
+                            </b-table>
+                        </b-card>
                     </b-tab>
-                    <b-tab title="Запрос 12"><b-card-text>Запрос 12</b-card-text>
+                    <b-tab title="Запрос 12"><b-card-text>Запрос 12.</b-card-text>
+                        <b-card>
+                            <b-button variant="dark" class="m-1" @click="handleSubmit12('req12')">Результат</b-button>
+                            <b-table id="req12"
+                                     striped
+                                     show-empty
+                                     :items="itemsReq12"
+                                     :fields="fieldsReq12"
+                                     :current-page="currentPageReq12"
+                                     :per-page="perPageReq12"
+                                     :total-rows="totalRowsReq12"
+                                     :busy.sync="isBusyReq12"
+                                     ref="table"
+                            >
+                            </b-table>
+                        </b-card>
                     </b-tab>
-                    <b-tab title="Запрос 13"><b-card-text>Запрос 13</b-card-text>
+                    <b-tab title="Запрос 13"><b-card-text>Запрос 13.</b-card-text>
+                        <b-card>
+                            <b-button variant="dark" class="m-1" @click="handleSubmit13('req13')">Результат</b-button>
+                            <b-table id="req13"
+                                     striped
+                                     show-empty
+                                     :items="itemsReq13"
+                                     :fields="fieldsReq13"
+                                     :current-page="currentPageReq13"
+                                     :per-page="perPageReq13"
+                                     :total-rows="totalRowsReq13"
+                                     :busy.sync="isBusyReq13"
+                                     ref="table"
+                            >
+                            </b-table>
+                        </b-card>
                     </b-tab>
-                    <b-tab title="Запрос 14"><b-card-text>Запрос 14</b-card-text>
+                    <b-tab title="Запрос 14"><b-card-text>Запрос 14.</b-card-text>
+                        <b-card>
+                            <b-button variant="dark" class="m-1" @click="handleSubmit14('req14')">Результат</b-button>
+                            <b-table id="req14"
+                                     striped
+                                     show-empty
+                                     :items="itemsReq14"
+                                     :fields="fieldsReq14"
+                                     :current-page="currentPageReq14"
+                                     :per-page="perPageReq14"
+                                     :total-rows="totalRowsReq14"
+                                     :busy.sync="isBusyReq14"
+                                     ref="table"
+                            >
+                            </b-table>
+                        </b-card>
                     </b-tab>
-                    <b-tab title="Запрос 15"><b-card-text>Запрос 15</b-card-text>
+                    <b-tab title="Запрос 15"><b-card-text>Запрос 15.</b-card-text>
+                        <b-card>
+                            <b-button variant="dark" class="m-1" @click="handleSubmit15('req15')">Результат</b-button>
+                            <b-table id="req15"
+                                     striped
+                                     show-empty
+                                     :items="itemsReq15"
+                                     :fields="fieldsReq15"
+                                     :current-page="currentPageReq15"
+                                     :per-page="perPageReq15"
+                                     :total-rows="totalRowsReq15"
+                                     :busy.sync="isBusyReq15"
+                                     ref="table"
+                            >
+                            </b-table>
+                        </b-card>
                     </b-tab>
                 </b-tabs>
             </b-card>
@@ -270,14 +426,139 @@
                         key: 'films',
                     },
                 ],
+
+                req7: '',
+                currentPageReq7: 1,
+                perPageReq7: 1000,
+                isBusyReq7: false,
+                totalRowsReq7: 0,
+                itemsReq7:[],
+                fieldsReq7: [
+                    {
+                        label: 'Cтудия',
+                        key: 'studio',
+                    },
+                    {
+                        label: '%',
+                        key: 'percent',
+                    }
+                ],
+
+                req8: '',
+                currentPageReq8: 1,
+                perPageReq8: 1000,
+                isBusyReq8: false,
+                totalRowsReq8: 0,
+                itemsReq8:[],
+                fieldsReq8: [
+                    {
+                        label: 'Cтудия',
+                        key: 'studio',
+                    },
+                    {
+                        label: 'Общая длительность фильмов',
+                        key: 'time',
+                    }
+                ],
+
+                req9: '',
+                currentPageReq9: 1,
+                perPageReq9: 1000,
+                isBusyReq9: false,
+                totalRowsReq9: 0,
+                itemsReq9:[],
+                fieldsReq9: [
+                    {
+                        label: 'Средний год выпуска',
+                        key: 'answer',
+                    },
+                ],
+
+                req10: '',
+                currentPageReq10: 1,
+                perPageReq10: 1000,
+                isBusyReq10: false,
+                totalRowsReq10: 0,
+                itemsReq10:[],
+                fieldsReq10: [
+                    {
+                        label: 'Возраст почти самого старого директора',
+                        key: 'answer',
+                    },
+                ],
+
+                req10: '',
+                currentPageReq10: 1,
+                perPageReq10: 1000,
+                isBusyReq10: false,
+                totalRowsReq10: 0,
+                itemsReq10:[],
+                fieldsReq10: [
+                    {
+                        label: 'Возраст почти самого старого директора',
+                        key: 'answer',
+                    },
+                ],
+
+                req10: '',
+                currentPageReq10: 1,
+                perPageReq10: 1000,
+                isBusyReq10: false,
+                totalRowsReq10: 0,
+                itemsReq10:[],
+                fieldsReq10: [
+                    {
+                        label: 'Возраст почти самого старого директора',
+                        key: 'answer',
+                    },
+                ],
+
+                req10: '',
+                currentPageReq10: 1,
+                perPageReq10: 1000,
+                isBusyReq10: false,
+                totalRowsReq10: 0,
+                itemsReq10:[],
+                fieldsReq10: [
+                    {
+                        label: 'Возраст почти самого старого директора',
+                        key: 'answer',
+                    },
+                ],
+
+                req10: '',
+                currentPageReq10: 1,
+                perPageReq10: 1000,
+                isBusyReq10: false,
+                totalRowsReq10: 0,
+                itemsReq10:[],
+                fieldsReq10: [
+                    {
+                        label: 'Возраст почти самого старого директора',
+                        key: 'answer',
+                    },
+                ],
+
+                req10: '',
+                currentPageReq10: 1,
+                perPageReq10: 1000,
+                isBusyReq10: false,
+                totalRowsReq10: 0,
+                itemsReq10:[],
+                fieldsReq10: [
+                    {
+                        label: 'Возраст почти самого старого директора',
+                        key: 'answer',
+                    },
+                ],
             }
         },
         created() {
         },
         methods:{
             handleSubmit(reqnum,req) {
-                let mreqnum = new String(reqnum)
-                let mreq = new String(req)
+                let mreqnum = new String(reqnum);
+                let mreq = new String(req);
                 let url = this.formURL + "/" + mreqnum + "/" + mreq;
                 this.$http.get(url).then(result => {
                     console.log(result);
@@ -301,7 +582,7 @@
                 })
             },
             handleSubmit4(reqnum) {
-                let mreqnum = new String(reqnum)
+                let mreqnum = new String(reqnum);
                 let url = this.formURL + "/" + mreqnum;
                 this.$http.get(url).then(result => {
                     console.log(result);
@@ -309,7 +590,7 @@
                 })
             },
             handleSubmit5(reqnum) {
-                let mreqnum = new String(reqnum)
+                let mreqnum = new String(reqnum);
                 let url = this.formURL + "/" + mreqnum;
                 this.$http.get(url).then(result => {
                     console.log(result);
@@ -317,11 +598,85 @@
                 })
             },
             handleSubmit6(reqnum) {
-                let mreqnum = new String(reqnum)
+                let mreqnum = new String(reqnum);
                 let url = this.formURL + "/" + mreqnum;
                 this.$http.get(url).then(result => {
                     console.log(result);
                     this.getItems6(mreqnum)
+                })
+            },
+            handleSubmit7(reqnum) {
+                let mreqnum = new String(reqnum);
+                let url = this.formURL + "/" + mreqnum;
+                this.$http.get(url).then(result => {
+                    console.log(result);
+                    this.getItems7(mreqnum)
+                })
+            },
+            handleSubmit8(reqnum,req) {
+                let mreqnum = new String(reqnum);
+                let mreq = new String(req);
+                let url = this.formURL + "/" + mreqnum + "/" + mreq;
+                this.$http.get(url).then(result => {
+                    console.log(result);
+                    this.getItems8(mreqnum,mreq)
+                })
+            },
+            handleSubmit9(reqnum,req) {
+                let mreqnum = new String(reqnum);
+                let mreq = new String(req);
+                let url = this.formURL + "/" + mreqnum + "/" + mreq;
+                this.$http.get(url).then(result => {
+                    console.log(result);
+                    this.getItems9(mreqnum,mreq)
+                })
+            },
+            handleSubmit10(reqnum) {
+                let mreqnum = new String(reqnum);
+                let url = this.formURL + "/" + mreqnum;
+                this.$http.get(url).then(result => {
+                    console.log(result);
+                    this.getItems10(mreqnum)
+                })
+            },
+            handleSubmit11(reqnum) {
+                let mreqnum = new String(reqnum);
+                let url = this.formURL + "/" + mreqnum;
+                this.$http.get(url).then(result => {
+                    console.log(result);
+                    this.getItems11(mreqnum)
+                })
+            },
+            handleSubmit12(reqnum) {
+                let mreqnum = new String(reqnum);
+                let url = this.formURL + "/" + mreqnum;
+                this.$http.get(url).then(result => {
+                    console.log(result);
+                    this.getItems12(mreqnum)
+                })
+            },
+            handleSubmit13(reqnum) {
+                let mreqnum = new String(reqnum);
+                let url = this.formURL + "/" + mreqnum;
+                this.$http.get(url).then(result => {
+                    console.log(result);
+                    this.getItems13(mreqnum)
+                })
+            },
+            handleSubmit14(reqnum) {
+                let mreqnum = new String(reqnum);
+                let url = this.formURL + "/" + mreqnum;
+                this.$http.get(url).then(result => {
+                    console.log(result);
+                    this.getItems14(mreqnum)
+                })
+            },
+            handleSubmit15(reqnum) {
+                let mreqnum = new String(reqnum);
+                let url = this.formURL + "/" + mreqnum;
+                this.$http.get(url).then(result => {
+                    console.log(result);
+                    this.getItems15(mreqnum)
                 })
             },
             getItems(reqnum,req){
@@ -455,13 +810,229 @@
                         }
                     }
                     this.isBusyReq6 = false;
-                    this.itemsReq5 = [];
+                    this.itemsReq6 = [];
                     return []
                 },error =>{
                     this.isBusyReq6 = false;
                     console.log("ERROR",error);
                 });
             },
+            getItems7(reqnum){
+                /*if (this.req7.length == 0){
+                    this.itemsReq7 = [];
+                    return;
+                }*/
+                let url = this.formURL + "/" + reqnum;
+                this.isBusyReq7 = true;
+                return this.$http.get(url).then(result => {
+                    console.log(result);
+                    if (result.status === 200 || result.status === 304 ){
+                        if(result.body.length > 0) {
+                            this.itemsReq7 = result.body;
+                            return result.body
+                        }
+                    }
+                    this.isBusyReq7 = false;
+                    this.itemsReq7 = [];
+                    return []
+                },error =>{
+                    this.isBusyReq7 = false;
+                    console.log("ERROR",error);
+                });
+            },
+
+            getItems8(reqnum, req){
+                if (this.req8.length == 0){
+                    this.itemsReq8 = [];
+                    return;
+                }
+                let url = this.formURL + "/" + reqnum + "/" + req;
+                this.isBusyReq8 = true;
+                return this.$http.get(url).then(result => {
+                    console.log(result);
+                    if (result.status === 200 || result.status === 304 ){
+                        if(result.body.length > 0) {
+                            this.itemsReq8 = result.body;
+                            return result.body
+                        }
+                    }
+                    this.isBusyReq8 = false;
+                    this.itemsReq8 = [];
+                    return []
+                },error =>{
+                    this.isBusyReq8 = false;
+                    console.log("ERROR",error);
+                });
+            },
+
+            getItems9(reqnum, req){
+                if (this.req9.length == 0){
+                    this.itemsReq9 = [];
+                    return;
+                }
+                let url = this.formURL + "/" + reqnum + "/" + req;
+                this.isBusyReq9 = true;
+                return this.$http.get(url).then(result => {
+                    console.log(result);
+                    if (result.status === 200 || result.status === 304 ){
+                        if(result.body.length > 0) {
+                            this.itemsReq9 = result.body;
+                            return result.body
+                        }
+                    }
+                    this.isBusyReq9 = false;
+                    this.itemsReq9 = [];
+                    return []
+                },error =>{
+                    this.isBusyReq9 = false;
+                    console.log("ERROR",error);
+                });
+            },
+
+            getItems10(reqnum){
+                /*if (this.req10.length == 0){
+                    this.itemsReq10 = [];
+                    return;
+                }*/
+                let url = this.formURL + "/" + reqnum;
+                this.isBusyReq10 = true;
+                return this.$http.get(url).then(result => {
+                    console.log(result);
+                    if (result.status === 200 || result.status === 304 ){
+                        if(result.body.length > 0) {
+                            this.itemsReq10 = result.body;
+                            return result.body
+                        }
+                    }
+                    this.isBusyReq10 = false;
+                    this.itemsReq10 = [];
+                    return []
+                },error =>{
+                    this.isBusyReq10 = false;
+                    console.log("ERROR",error);
+                });
+            },
+
+            getItems11(reqnum){
+                /*if (this.req11.length == 0){
+                    this.itemsReq11 = [];
+                    return;
+                }*/
+                let url = this.formURL + "/" + reqnum;
+                this.isBusyReq11 = true;
+                return this.$http.get(url).then(result => {
+                    console.log(result);
+                    if (result.status === 200 || result.status === 304 ){
+                        if(result.body.length > 0) {
+                            this.itemsReq11 = result.body;
+                            return result.body
+                        }
+                    }
+                    this.isBusyReq11 = false;
+                    this.itemsReq11 = [];
+                    return []
+                },error =>{
+                    this.isBusyReq11 = false;
+                    console.log("ERROR",error);
+                });
+            },
+
+            getItems12(reqnum){
+                /*if (this.req12.length == 0){
+                    this.itemsReq12 = [];
+                    return;
+                }*/
+                let url = this.formURL + "/" + reqnum;
+                this.isBusyReq12 = true;
+                return this.$http.get(url).then(result => {
+                    console.log(result);
+                    if (result.status === 200 || result.status === 304 ){
+                        if(result.body.length > 0) {
+                            this.itemsReq12 = result.body;
+                            return result.body
+                        }
+                    }
+                    this.isBusyReq12 = false;
+                    this.itemsReq12 = [];
+                    return []
+                },error =>{
+                    this.isBusyReq12 = false;
+                    console.log("ERROR",error);
+                });
+            },
+
+            getItems13(reqnum){
+                /*if (this.req13.length == 0){
+                    this.itemsReq13 = [];
+                    return;
+                }*/
+                let url = this.formURL + "/" + reqnum;
+                this.isBusyReq13 = true;
+                return this.$http.get(url).then(result => {
+                    console.log(result);
+                    if (result.status === 200 || result.status === 304 ){
+                        if(result.body.length > 0) {
+                            this.itemsReq13 = result.body;
+                            return result.body
+                        }
+                    }
+                    this.isBusyReq13 = false;
+                    this.itemsReq13 = [];
+                    return []
+                },error =>{
+                    this.isBusyReq13 = false;
+                    console.log("ERROR",error);
+                });
+            },
+
+            getItems14(reqnum){
+                /*if (this.req14.length == 0){
+                    this.itemsReq14 = [];
+                    return;
+                }*/
+                let url = this.formURL + "/" + reqnum;
+                this.isBusyReq14 = true;
+                return this.$http.get(url).then(result => {
+                    console.log(result);
+                    if (result.status === 200 || result.status === 304 ){
+                        if(result.body.length > 0) {
+                            this.itemsReq14 = result.body;
+                            return result.body
+                        }
+                    }
+                    this.isBusyReq14 = false;
+                    this.itemsReq14 = [];
+                    return []
+                },error =>{
+                    this.isBusyReq10 = false;
+                    console.log("ERROR",error);
+                });
+            },
+
+            getItems15(reqnum){
+                /*if (this.req15.length == 0){
+                    this.itemsReq15 = [];
+                    return;
+                }*/
+                let url = this.formURL + "/" + reqnum;
+                this.isBusyReq15 = true;
+                return this.$http.get(url).then(result => {
+                    console.log(result);
+                    if (result.status === 200 || result.status === 304 ){
+                        if(result.body.length > 0) {
+                            this.itemsReq15 = result.body;
+                            return result.body
+                        }
+                    }
+                    this.isBusyReq15 = false;
+                    this.itemsReq15 = [];
+                    return []
+                },error =>{
+                    this.isBusyReq15 = false;
+                    console.log("ERROR",error);
+                });
+            },
+
             delete: function (url, data, callback) {
                 return this.$http.delete(url,data,null).then(result => {
                     callback(result.body);

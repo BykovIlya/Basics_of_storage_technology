@@ -66,6 +66,16 @@ func main() {
 			analytics.GET("/req4", routes.GetReq4)
 			analytics.GET("/req5", routes.GetReq5)
 			analytics.GET("/req6", routes.GetReq6)
+			analytics.GET("/req7", routes.GetReq7)
+			analytics.GET("/req8/:id", routes.GetReq8)
+			analytics.GET("/req9/:id", routes.GetReq9)
+			analytics.GET("/req10", routes.GetReq10)
+			analytics.GET("/req11", routes.GetReq11)
+			analytics.GET("/req12", routes.GetReq12)
+			analytics.GET("/req13", routes.GetReq13)
+			analytics.GET("/req14", routes.GetReq14)
+			analytics.GET("/req15", routes.GetReq15)
+
 		}
 	}
 	router.Run(":5000")

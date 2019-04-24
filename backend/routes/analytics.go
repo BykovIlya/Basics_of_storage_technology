@@ -39,3 +39,55 @@ func GetReq5(c *gin.Context) {
 func GetReq6(c *gin.Context) {
 	c.JSON(http.StatusOK, models.GetReq6())
 }
+
+func GetReq7(c *gin.Context) {
+	c.JSON(http.StatusOK, models.GetReq7())
+}
+
+func GetReq8(c *gin.Context) {
+	param := c.Param("id")
+	x, err := strconv.ParseInt(param, 10, 64)
+	utils.CheckErr(err)
+	w := models.GetReq8(x)
+	if w != nil {
+		c.JSON(http.StatusOK, w)
+	} else {
+		c.JSON(http.StatusNotFound, ApiMessage{utils.EntityNotExistMessage("req8")})
+	}
+}
+
+func GetReq9(c *gin.Context) {
+	param := c.Param("id")
+	x, err := strconv.ParseInt(param, 10, 64)
+	utils.CheckErr(err)
+	w := models.GetReq9(x)
+	if w != nil {
+		c.JSON(http.StatusOK, w)
+	} else {
+		c.JSON(http.StatusNotFound, ApiMessage{utils.EntityNotExistMessage("req9")})
+	}
+}
+
+func GetReq10(c *gin.Context) {
+	c.JSON(http.StatusOK, models.GetReq10())
+}
+
+func GetReq11(c *gin.Context) {
+	c.JSON(http.StatusOK, models.GetReq11())
+}
+
+func GetReq12(c *gin.Context) {
+	c.JSON(http.StatusOK, models.GetReq12())
+}
+
+func GetReq13(c *gin.Context) {
+	c.JSON(http.StatusOK, models.GetReq13())
+}
+
+func GetReq14(c *gin.Context) {
+	c.JSON(http.StatusOK, models.GetReq14())
+}
+
+func GetReq15(c *gin.Context) {
+	c.JSON(http.StatusOK, models.GetReq15())
+}
