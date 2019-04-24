@@ -36,3 +36,4 @@
 
 Таблица:
 
+![table1](https://github.com/BykovIlya/Basics_of_storage_technology/blob/master/images/q1.png)
