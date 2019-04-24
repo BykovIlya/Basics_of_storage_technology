@@ -448,7 +448,9 @@
 Код:
 
 ```
-
+    select title, year, length 
+    from movies 
+    where year between 1900 and 1999 and length between 100 and 125
 ```
 
 Результат
