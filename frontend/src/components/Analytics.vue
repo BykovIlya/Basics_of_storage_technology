@@ -71,18 +71,72 @@
                             </b-table>
                         </b-card>
                     </b-tab>
-                    <b-tab title="Запрос 4"><b-card-text>Запрос 4</b-card-text></b-tab>
-                    <b-tab title="Запрос 5"><b-card-text>Запрос 5</b-card-text></b-tab>
-                    <b-tab title="Запрос 6"><b-card-text>Запрос 6</b-card-text></b-tab>
-                    <b-tab title="Запрос 7"><b-card-text>Запрос 7</b-card-text></b-tab>
-                    <b-tab title="Запрос 8"><b-card-text>Запрос 8</b-card-text></b-tab>
-                    <b-tab title="Запрос 9"><b-card-text>Запрос 9</b-card-text></b-tab>
-                    <b-tab title="Запрос 10"><b-card-text>Запрос 10</b-card-text></b-tab>
-                    <b-tab title="Запрос 11"><b-card-text>Запрос 11</b-card-text></b-tab>
-                    <b-tab title="Запрос 12"><b-card-text>Запрос 12</b-card-text></b-tab>
-                    <b-tab title="Запрос 13"><b-card-text>Запрос 13</b-card-text></b-tab>
-                    <b-tab title="Запрос 14"><b-card-text>Запрос 14</b-card-text></b-tab>
-                    <b-tab title="Запрос 15"><b-card-text>Запрос 15</b-card-text></b-tab>
+                    <b-tab title="Запрос 4"><b-card-text>Запрос 4. Показать директоров и их возраст, работающих со студией Universal Studios. Сортировать по старшинству</b-card-text>
+                        <b-button variant="dark" class="m-1" @click="handleSubmit4('req4')">Результат</b-button>
+                        <b-table id="req4"
+                                 striped
+                                 show-empty
+                                 :items="itemsReq4"
+                                 :fields="fieldsReq4"
+                                 :current-page="currentPageReq4"
+                                 :per-page="perPageReq4"
+                                 :total-rows="totalRowsReq4"
+                                 :busy.sync="isBusyReq4"
+                                 ref="table"
+                        >
+                        </b-table>
+                    </b-tab>
+                    <b-tab title="Запрос 5"><b-card-text>Запрос 5. Показать директоров-мужчин, снявших менее 2х фильмов и пользующихся почтой gmail</b-card-text>
+                        <b-button variant="dark" class="m-1" @click="handleSubmit5('req5')">Результат</b-button>
+                        <b-table id="req5"
+                                 striped
+                                 show-empty
+                                 :items="itemsReq5"
+                                 :fields="fieldsReq5"
+                                 :current-page="currentPageReq5"
+                                 :per-page="perPageReq5"
+                                 :total-rows="totalRowsReq5"
+                                 :busy.sync="isBusyReq5"
+                                 ref="table"
+                        >
+                        </b-table>
+                    </b-tab>
+                    <b-tab title="Запрос 6"><b-card-text>Запрос 6. Показать самую молодую студию, снявшую более одного фильма из таблицы Фильмы</b-card-text>
+                        <b-button variant="dark" class="m-1" @click="handleSubmit6('req6')">Результат</b-button>
+                        <b-table id="req6"
+                                 striped
+                                 show-empty
+                                 :items="itemsReq6"
+                                 :fields="fieldsReq6"
+                                 :current-page="currentPageReq6"
+                                 :per-page="perPageReq6"
+                                 :total-rows="totalRowsReq6"
+                                 :busy.sync="isBusyReq6"
+                                 ref="table"
+                        >
+                        </b-table>
+                    </b-tab>
+                    <b-tab title="Запрос 7"><b-card-text>Запрос 7. Показать процент фильмов студий, показанных в таблице, от общего числа фильмов студий</b-card-text>
+
+                    </b-tab>
+                    <b-tab title="Запрос 8"><b-card-text>Запрос 8. Показать общую длительность фильмов, снятых студиями, открытыми после указанного года</b-card-text>
+
+                    </b-tab>
+                    <b-tab title="Запрос 9"><b-card-text>Запрос 9. Показать средний год выпуска фильмов, длительность которых выше указанной</b-card-text>
+
+                    </b-tab>
+                    <b-tab title="Запрос 10"><b-card-text>Запрос 10</b-card-text>
+                    </b-tab>
+                    <b-tab title="Запрос 11"><b-card-text>Запрос 11</b-card-text>
+                    </b-tab>
+                    <b-tab title="Запрос 12"><b-card-text>Запрос 12</b-card-text>
+                    </b-tab>
+                    <b-tab title="Запрос 13"><b-card-text>Запрос 13</b-card-text>
+                    </b-tab>
+                    <b-tab title="Запрос 14"><b-card-text>Запрос 14</b-card-text>
+                    </b-tab>
+                    <b-tab title="Запрос 15"><b-card-text>Запрос 15</b-card-text>
+                    </b-tab>
                 </b-tabs>
             </b-card>
         </div>
@@ -153,6 +207,69 @@
                         key: 'total',
                     },
                 ],
+
+                req4: '',
+                currentPageReq4: 1,
+                perPageReq4: 1000,
+                isBusyReq4: false,
+                totalRowsReq4: 0,
+                itemsReq4:[],
+                fieldsReq4: [
+                    {
+                        label: 'Директор',
+                        key: 'director',
+                    },
+                    {
+                        label: 'Возраст',
+                        key: 'age',
+                    },
+                ],
+
+                req5: '',
+                currentPageReq5: 1,
+                perPageReq5: 1000,
+                isBusyReq5: false,
+                totalRowsReq5: 0,
+                itemsReq5:[],
+                fieldsReq5: [
+                    {
+                        label: 'ФИО',
+                        key: 'name',
+                    },
+                    {
+                        label: 'Пол',
+                        key: 'gender',
+                    },
+                    {
+                        label: 'Почта',
+                        key: 'email',
+                    },
+                    {
+                        label: 'Фильмов снято',
+                        key: 'films',
+                    },
+                ],
+
+                req6: '',
+                currentPageReq6: 1,
+                perPageReq6: 1000,
+                isBusyReq6: false,
+                totalRowsReq6: 0,
+                itemsReq6:[],
+                fieldsReq6: [
+                    {
+                        label: 'Cтудия',
+                        key: 'studio',
+                    },
+                    {
+                        label: 'Год основания',
+                        key: 'year',
+                    },
+                    {
+                        label: 'Фильмов снято',
+                        key: 'films',
+                    },
+                ],
             }
         },
         created() {
@@ -181,6 +298,30 @@
                 this.$http.get(url).then(result => {
                     console.log(result);
                     this.getItems3(mreqnum)
+                })
+            },
+            handleSubmit4(reqnum) {
+                let mreqnum = new String(reqnum)
+                let url = this.formURL + "/" + mreqnum;
+                this.$http.get(url).then(result => {
+                    console.log(result);
+                    this.getItems4(mreqnum)
+                })
+            },
+            handleSubmit5(reqnum) {
+                let mreqnum = new String(reqnum)
+                let url = this.formURL + "/" + mreqnum;
+                this.$http.get(url).then(result => {
+                    console.log(result);
+                    this.getItems5(mreqnum)
+                })
+            },
+            handleSubmit6(reqnum) {
+                let mreqnum = new String(reqnum)
+                let url = this.formURL + "/" + mreqnum;
+                this.$http.get(url).then(result => {
+                    console.log(result);
+                    this.getItems6(mreqnum)
                 })
             },
             getItems(reqnum,req){
@@ -249,6 +390,75 @@
                     return []
                 },error =>{
                     this.isBusyReq3 = false;
+                    console.log("ERROR",error);
+                });
+            },
+            getItems4(reqnum){
+                /*if (this.req4.length == 0){
+                    this.itemsReq4 = [];
+                    return;
+                }*/
+                let url = this.formURL + "/" + reqnum;
+                this.isBusyReq4 = true;
+                return this.$http.get(url).then(result => {
+                    console.log(result);
+                    if (result.status === 200 || result.status === 304 ){
+                        if(result.body.length > 0) {
+                            this.itemsReq4 = result.body;
+                            return result.body
+                        }
+                    }
+                    this.isBusyReq4 = false;
+                    this.itemsReq4 = [];
+                    return []
+                },error =>{
+                    this.isBusyReq4 = false;
+                    console.log("ERROR",error);
+                });
+            },
+            getItems5(reqnum){
+                /*if (this.req5.length == 0){
+                    this.itemsReq5 = [];
+                    return;
+                }*/
+                let url = this.formURL + "/" + reqnum;
+                this.isBusyReq5 = true;
+                return this.$http.get(url).then(result => {
+                    console.log(result);
+                    if (result.status === 200 || result.status === 304 ){
+                        if(result.body.length > 0) {
+                            this.itemsReq5 = result.body;
+                            return result.body
+                        }
+                    }
+                    this.isBusyReq5 = false;
+                    this.itemsReq5 = [];
+                    return []
+                },error =>{
+                    this.isBusyReq5 = false;
+                    console.log("ERROR",error);
+                });
+            },
+            getItems6(reqnum){
+                /*if (this.req6.length == 0){
+                    this.itemsReq6 = [];
+                    return;
+                }*/
+                let url = this.formURL + "/" + reqnum;
+                this.isBusyReq6 = true;
+                return this.$http.get(url).then(result => {
+                    console.log(result);
+                    if (result.status === 200 || result.status === 304 ){
+                        if(result.body.length > 0) {
+                            this.itemsReq6 = result.body;
+                            return result.body
+                        }
+                    }
+                    this.isBusyReq6 = false;
+                    this.itemsReq5 = [];
+                    return []
+                },error =>{
+                    this.isBusyReq6 = false;
                     console.log("ERROR",error);
                 });
             },

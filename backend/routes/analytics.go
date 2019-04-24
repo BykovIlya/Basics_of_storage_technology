@@ -27,3 +27,15 @@ func GetReq2(c *gin.Context) {
 func GetReq3(c *gin.Context) {
 	c.JSON(http.StatusOK, models.GetReq3())
 }
+
+func GetReq4(c *gin.Context) {
+	c.JSON(http.StatusOK, models.GetReq4())
+}
+
+func GetReq5(c *gin.Context) {
+	c.JSON(http.StatusOK, models.GetReq5())
+}
+
+func GetReq6(c *gin.Context) {
+	c.JSON(http.StatusOK, models.GetReq6())
+}
